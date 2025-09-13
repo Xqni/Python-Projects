@@ -21,13 +21,13 @@ def convert(api_key, args: list):
             "to": args[2]
         }
     except Exception as e:
-        return f"{e}"
+        raise e
 
     response = requests.get(url, headers=headers, params=params)
 
-    # Return response
     if response.status_code != 200:
-        return f"Failed to convert \"{args[1]}\" to \"{args[2]}\"! :("
+        return f"Conversion failed! :("
+    
     response = response.json()
     return f"Current rate: {response["text"]}"
 
