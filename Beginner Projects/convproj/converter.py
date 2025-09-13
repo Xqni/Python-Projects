@@ -12,6 +12,13 @@ def main(args):
         if not re.match(p, s):
             sys.exit("usage: 1 USD CAD")
         handle_currency(args.currency)
+    
+    elif args.unit:
+        p = r"^\d+.?(\d+)?(?:\s[a-zA-Z]{3}){2}$"
+        s = " ".join(args.unit)
+        if not re.match(p, s):
+            sys.exit("usage: 1 USD CAD")
+        handle_currency(args.currency)
 
 
 def handle_currency(money):
