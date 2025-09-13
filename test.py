@@ -1,15 +1,54 @@
-from InquirerPy.resolver import prompt
+import questionary
+
 
 questions = [
-    {"type": "input", "message": "What's your name:", "name": "name"},
-    {
-        "type": "list",
-        "message": "What's your favourite programming language:",
-        "choices": ["Go", "Python", "Rust", "JavaScript"],
-    },
-    {"type": "confirm", "message": "Confirm?"},
+  {
+    "type": "select",
+    "name": "type",
+    "message": "What would you like to convert today? :)",
+    "choices": ["Currency", "Units"],
+  }
 ]
-result = prompt(questions)
-name = result["name"]
-fav_lang = result[1]
-confirm = result[2]
+
+results = questionary.prompt(questions)
+
+if results["type"] == "Currency":
+    c_prompt = [
+        {
+            "type": "text",
+            "name": "amount",
+            "message": "Amount:",
+        },
+        {
+            "type": "text",
+            "name": "from",
+            "message": "From:",
+        },
+        {
+            "type": "text",
+            "name": "to",
+            "message": "To:",
+        },
+    ]
+
+elif results["type"] == "Units":
+    u_prompt = [
+        {
+            "type": "text",
+            "name": "value",
+            "message": "value:",
+        },
+        {
+            "type": "text",
+            "name": "from",
+            "message": "From:",
+        },
+        {
+            "type": "text",
+            "name": "to",
+            "message": "To:",
+        },
+    ]
+
+    results = questionary.prompt(u_prompt)
+    print(results)

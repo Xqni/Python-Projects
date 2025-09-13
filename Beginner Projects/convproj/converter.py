@@ -1,8 +1,10 @@
 import argparse
 import helpers
 import helpers.env as env
+import helpers.validators as val
 import re
 import sys
+import questionary
 
 
 def main(args):
@@ -41,4 +43,66 @@ if __name__ == "__main__":
 
     # get the list of arguments passed
     args = parser.parse_args()
-    main(args)
+
+    if len(sys.argv) > 1:
+        main(args)
+    elif len(sys.argv) == 1:
+        questions = [
+                {
+                    "type": "select",
+                    "name": "type",
+                    "message": "What would you like to convert today? :)",
+                    "choices": ["Currency", "Units"],
+                }
+            ]
+
+        results = questionary.prompt(questions)
+
+        if results["type"] == "Currency":
+            c_prompt = [
+                {
+                    "type": "text",
+                    "name": "amount",
+                    "message": "Amount:",
+                    "validate": val.valueValidator,
+                },
+                {
+                    "type": "text",
+                    "name": "from",
+                    "message": "From:",
+                    "validate": val.valueValidator,
+                },
+                {
+                    "type": "text",
+                    "name": "to",
+                    "message": "To:",
+                    "validate": val.valueValidator,
+                },
+            ]
+
+            results = questionary.prompt(c_prompt)
+            handle_currency(list(results.values()))
+
+        elif results["type"] == "Units":
+            u_prompt = [
+                {
+                    "type": "text",
+                    "name": "value",
+                    "message": "value:",
+                    "validate": val.valueValidator,
+                },
+                {
+                    "type": "text",
+                    "name": "from",
+                    "message": "From:",
+                    "validate": val.valueValidator,
+                },
+                {
+                    "type": "text",
+                    "name": "to",
+                    "message": "To:",
+                    "validate": val.valueValidator,
+                },
+            ]
+            results = questionary.prompt(u_prompt)
+            handle_units(list(results.values()))

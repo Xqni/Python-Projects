@@ -17,7 +17,7 @@ def convert_units(args: list):
     except IndexError:
         return f"usage: value unit1 unit2"
     except pint.errors.DimensionalityError as e:
-        return f"\n{e}\n"
+        return f"{e}"
 
 
 if __name__ == "__main__":

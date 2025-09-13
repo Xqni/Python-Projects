@@ -14,19 +14,22 @@ def convert(api_key, args: list):
 
     headers = {'Content-Type': 'application/json'}
 
-    params = {
-        "amount": float(args[0]),
-        "from": args[1],
-        "to": args[2]
-    }
+    try:
+        params = {
+            "amount": float(args[0]),
+            "from": args[1],
+            "to": args[2]
+        }
+    except Exception as e:
+        return f"{e}"
 
     response = requests.get(url, headers=headers, params=params)
 
     # Return response
     if response.status_code != 200:
-        return f"Failed to convert! :("
+        return f"Failed to convert \"{args[1]}\" to \"{args[2]}\"! :("
     response = response.json()
-    return response["text"]
+    return f"Current rate: {response["text"]}"
 
 
 if __name__ == "__main__":
