@@ -1,4 +1,4 @@
-# pytest .\test_converter.py --tb=no -v --no-header
+# pytest .\test_convert.py --tb=no -v --no-header
 # ^^^ test command
 
 from helpers import currency
@@ -14,5 +14,9 @@ def test_valid_convert():
 def test_invalid_convert():
     with pytest.raises(ValueError):
         assert currency.convert(env.get("API_KEY"), "cat")
+        
+    with pytest.raises(TypeError):
         assert currency.convert(env.get("API_KEY"), 231423)
-        assert currency.convert(env.get("API_KEY"), "1 usd to cad")
+
+    assert currency.convert(env.get("API_KEY"), "1 usd to cad") == "Failed to convert! :("
+    assert currency.convert(env.get("API_KEY"), "1 sdf sfdo sdf") == "Failed to convert! :("
