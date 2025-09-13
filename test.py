@@ -1,16 +1,15 @@
-import requests
+from InquirerPy.resolver import prompt
 
-url = 'https://v1.apiplugin.io/v1/currency/wJr7EWfk/convert'
-headers = {'Content-Type': 'application/json'}
-
-params = {
-    "amount": 1,
-    "from": "sd",
-    "to": "s"
-}
-
-response = requests.get(url, headers=headers, params=params)
-
-# Print response
-print(response.status_code)
-print(response.json())
+questions = [
+    {"type": "input", "message": "What's your name:", "name": "name"},
+    {
+        "type": "list",
+        "message": "What's your favourite programming language:",
+        "choices": ["Go", "Python", "Rust", "JavaScript"],
+    },
+    {"type": "confirm", "message": "Confirm?"},
+]
+result = prompt(questions)
+name = result["name"]
+fav_lang = result[1]
+confirm = result[2]

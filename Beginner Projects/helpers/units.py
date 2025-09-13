@@ -8,14 +8,17 @@ def main():
     ...
 
 
-def convert_units():
-    args = sys.argv
-
-    unit1 = Q_(float(args[1]), args[2])
-    unit2 = args[3]
-    result = unit1.to(unit2)
-    print(f"{result:.2f~P}")
+def convert_units(args: list):
+    try:
+        unit1 = Q_(float(args[0]), args[1])
+        unit2 = args[2]
+        result = unit1.to(unit2)
+        return f"{result:.6f~P}"
+    except IndexError:
+        return f"usage: value unit1 unit2"
+    except pint.errors.DimensionalityError as e:
+        return f"\n{e}\n"
 
 
 if __name__ == "__main__":
-    convert_units()
+    main()

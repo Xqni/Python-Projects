@@ -9,7 +9,7 @@ Please import "helpers" package and use that instead.
           """)
 
 
-def convert(api_key, args):
+def convert(api_key, args: list):
     url = f"https://v1.apiplugin.io/v1/currency/{api_key}/convert"
 
     headers = {'Content-Type': 'application/json'}
