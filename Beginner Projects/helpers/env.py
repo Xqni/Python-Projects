@@ -1,3 +1,17 @@
+"""
+This file loads .env file to be usable by other modules and packages.
+
+Keep in mind the .env file should be 3 levels up from the current file
+<your own folder>/Beginner Projects/helpers/env.py
+
+::Usage::
+import helper.env as env   <--- currently only works in Beginner Projects directory
+
+print(env.get("API_KEY))
+^ should print your API KEY stored inside .env file
+"""
+
+
 import os
 from dotenv import load_dotenv
 

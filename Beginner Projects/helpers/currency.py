@@ -1,4 +1,3 @@
-import os
 import requests
 
 
@@ -10,6 +9,23 @@ Please import "helpers" package and use that instead.
 
 
 def convert(api_key, args: list):
+    """
+    Convert one currency into another.
+
+    :param api_key: Your own API KEY at https://apiplugin.com/ for Currency Converter.
+    :type api_key: str
+
+    The API KEY should be kept inside .env file, see helpers/env.py for file/dir structure.
+
+    :param args: A Python list containing the amount, from, and to values.
+    :type args: list
+
+    :raise TypeError: If args[0], the very first element of the list, is not a number.
+
+    :return: A response key's value (text) containing the converted value or an error.
+    :rtype: str
+    """
+
     url = f"https://v1.apiplugin.io/v1/currency/{api_key}/convert"
 
     headers = {'Content-Type': 'application/json'}

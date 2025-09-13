@@ -1,13 +1,13 @@
+"""
+Initializes current directories modules (or files) to be used by other projects.
+
+::Usage::
+import helpers
+
+...
+helpers.currency.convert(<some list>)
+...
+"""
+
 from . import currency
 from . import units
-
-import os
-from dotenv import load_dotenv
-
-# Figure out project root (two levels up from helpers)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DOTENV_PATH = os.path.join(BASE_DIR, ".env")
-
-# Load .env if it exists
-if os.path.exists(DOTENV_PATH):
-    load_dotenv(DOTENV_PATH)
