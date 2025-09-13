@@ -14,3 +14,4 @@ def test_valid_convert():
 def test_invalid_convert():
     with pytest.raises(ValueError):
         assert currency.convert(env.get("API_KEY"), "cat")
+        assert currency.convert(env.get("API_KEY"), "1usd cad")
