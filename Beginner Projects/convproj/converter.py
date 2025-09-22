@@ -7,6 +7,8 @@ import sys
 import questionary
 
 """Main Converter program."""
+
+
 def main(args):
     """
     If the user opts for flag based functionality then direct the user input into correct handler functions.
@@ -15,13 +17,13 @@ def main(args):
     :type args: argparse.Namespace object.
 
     There is a regex pattern defined to ensure that the user input is of correct format before proceeding, should the user choose argparse route.
-    
-    REGEX PATTERN EXPLAINED: ^\d+.?(\d+)?(?:\s[a-zA-Z]{3}){2}$
-    ^\d+ - checks for atleast one digit at the start, but accepts more.
+
+    REGEX PATTERN EXPLAINED: ^\\d+.?(\\d+)?(?:\\s[a-zA-Z]{3}){2}$
+    ^\\d+ - checks for atleast one digit at the start, but accepts more.
     .? - checks for zero or one space
-    (?:\d+)? - non-recording group, checks for one or more digits. ? at the end indicates the whole group is opitional
-    (?:\s[a-zA-Z]{3}){2}$ - non-recording group, checks for following patterns.
-    \s - checks for only one space character
+    (?:\\d+)? - non-recording group, checks for one or more digits. ? at the end indicates the whole group is opitional
+    (?:\\s[a-zA-Z]{3}){2}$ - non-recording group, checks for following patterns.
+    \\s - checks for only one space character
     [a-zA-Z] - checks for letters in both cases.
     {3} - checks the previous pattern exactly three times in a row.
     {2} - checks the whole previous pattern exactly two times in a row.
@@ -45,7 +47,7 @@ def main(args):
         if not re.match(p, s):
             sys.exit("usage: 1 currency1 currency2")
         handle_currency(args.currency)
-    
+
     elif args.unit:
         handle_units(args.unit)
 
@@ -65,11 +67,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     # Add different flags
-    parser.add_argument("-c", "--currency", 
-                        nargs="*", 
+    parser.add_argument("-c", "--currency",
+                        nargs="*",
                         help="usage: 1 USD CAD")
-    parser.add_argument("-u", "--unit", 
-                        nargs="*", 
+    parser.add_argument("-u", "--unit",
+                        nargs="*",
                         help="usage: 1 cm ft")
 
     # get the list of arguments passed
@@ -79,13 +81,13 @@ if __name__ == "__main__":
         main(args)
     elif len(sys.argv) == 1:
         questions = [
-                {
-                    "type": "select",
-                    "name": "type",
-                    "message": "What would you like to convert today? :)",
-                    "choices": ["Currency", "Units"],
-                }
-            ]
+            {
+                "type": "select",
+                "name": "type",
+                "message": "What would you like to convert today? :)",
+                "choices": ["Currency", "Units"],
+            }
+        ]
 
         results = questionary.prompt(questions)
 
