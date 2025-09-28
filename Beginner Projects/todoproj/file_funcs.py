@@ -26,7 +26,11 @@ def write_data(file, data):
 
 def write_tasks(file, task):
     try:
+        if not read_data(file):
+            create_file(file)
+            
         data = read_data(file)
+
         todo_tasks = data["todo"]
         all_ids = [item["id"] for section in data.values() for item in section]
 

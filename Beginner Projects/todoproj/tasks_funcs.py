@@ -38,24 +38,17 @@ def show_tasks(file):
             task = change_status(task)
             if results["category"].lower() == "todo":
                 data["completed"].append(task)
+                data["todo"].remove(task)
             else:
                 data["todo"].append(task)
+                data["completed"].remove(task)
             try:
-                n_data = remove_task(data, task)
-                write_data(file, n_data)
+                write_data(file, data)
                 print(f"Changed task!")
             except Exception as e:
                 print(e)
     except (ValueError, UnboundLocalError):
         print("\nNo tasks to show, please see the other category!\n")
-
-
-def remove_task(data, task):
-    for key, value in data.items():
-        for index, item in enumerate(value):
-            if item["id"] == task["id"] and item["status"] != task["status"]:
-                value.pop(index)
-                return data
 
 
 def get_task_by_id(id: int, data: dict):
@@ -92,7 +85,7 @@ def get_task_id(data, category):
     return questionary.prompt({
         "type": "select",
                 "message": "which task please? :)",
-                "choices": [str(item["id"]) for item in data[category]],
+                "choices": sorted([str(item["id"]) for item in data[category]]),
                 "name": "task_id"
     })
 
