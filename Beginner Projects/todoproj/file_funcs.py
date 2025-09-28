@@ -28,7 +28,7 @@ def write_tasks(file, task):
     try:
         if not read_data(file):
             create_file(file)
-            
+
         data = read_data(file)
 
         todo_tasks = data["todo"]
@@ -55,7 +55,7 @@ def write_tasks(file, task):
         print(f"Task added! :) (id: {obj["id"]})")
 
     except Exception as e:
-        raise (e)
+        print(e)
 
 
 def check_file_exists(file):
