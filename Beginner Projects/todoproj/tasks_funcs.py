@@ -74,10 +74,13 @@ def show_task(task):
 
 
 def change_status(task):
-    if task["status"] == "todo":
-        task["status"] = "completed"
-    elif task["status"] == "completed":
-        task["status"] = "todo"
+    match task["status"]:
+        case "todo":
+            task["status"] = "completed"
+        case "completed":
+            task["status"] = "todo"
+        case _:
+            return task
     return task
 
 
