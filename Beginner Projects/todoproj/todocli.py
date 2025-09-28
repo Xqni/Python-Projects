@@ -1,3 +1,5 @@
+# python -m todoproj.todocli
+
 import questionary
 
 from .file_funcs import write_tasks, check_file_exists, create_file
